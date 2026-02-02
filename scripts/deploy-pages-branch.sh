@@ -36,7 +36,7 @@ fi
 
 echo "Using BASE_PATH=$BASE_PATH"
 
-echo "Building…"
+echo "Building..."
 BASE_PATH="$BASE_PATH" npm -C website run build
 
 WORKTREE_DIR="${WORKTREE_DIR:-/tmp/pages-website-branch}"
@@ -44,10 +44,10 @@ if [[ -e "$WORKTREE_DIR" ]]; then
   rm -rf "$WORKTREE_DIR"
 fi
 
-echo "Preparing worktree at $WORKTREE_DIR…"
+echo "Preparing worktree at ${WORKTREE_DIR}..."
 git worktree add "$WORKTREE_DIR" -B website
 
-echo "Syncing dist -> website branch root…"
+echo "Syncing dist -> website branch root..."
 rsync -a --delete --exclude ".git" website/dist/ "$WORKTREE_DIR/"
 touch "$WORKTREE_DIR/.nojekyll"
 
