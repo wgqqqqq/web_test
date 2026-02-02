@@ -1,0 +1,144 @@
+// ==================== Pillars ====================
+// 魔方矩阵展示 - 3x3 单元格呈现能力矩阵
+
+.pillars {
+  position: relative;
+  min-height: 100vh;
+  padding: $space-32 0;
+  background: $bg-primary;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  
+  &__container {
+    @include container;
+    position: relative;
+    z-index: 1;
+  }
+  
+  &__header {
+    text-align: center;
+    margin-bottom: $space-16;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  
+  &__title {
+    @include section-title;
+    margin-bottom: $space-3;
+  }
+  
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $space-6;
+    perspective: 1200px;
+    
+    @media (max-width: 1024px) {
+      grid-template-columns: 1fr;
+      gap: $space-8;
+    }
+  }
+  
+  &__pillar {
+    opacity: 0;
+    transform: translateY(40px) rotateX(8deg);
+    transform-origin: center bottom;
+    transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    transition-delay: var(--delay);
+    
+    &:hover {
+      .pillars__cube-face {
+        transform: scale(1.02);
+        border-color: $line-base;
+      }
+      
+      .pillars__pillar-title {
+        color: $text-primary;
+      }
+    }
+  }
+  
+  &__pillar-header {
+    margin-bottom: $space-4;
+    padding-bottom: $space-4;
+    border-bottom: 1px dashed $line-base;
+  }
+  
+  &__pillar-title {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-medium;
+    color: $text-secondary;
+    margin-bottom: 2px;
+    transition: color 0.3s ease;
+  }
+  
+  &__pillar-subtitle {
+    font-size: $font-size-sm;
+    color: $text-muted;
+  }
+  
+  // 3x3 魔方面
+  &__cube-face {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px dashed $line-base;
+    border-radius: $radius-sm;
+    padding: 2px;
+    transition: all 0.3s ease;
+  }
+  
+  &__cell {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(25, 25, 32, 0.8);
+    font-size: $font-size-xs;
+    color: $text-secondary;
+    text-align: center;
+    padding: $space-2;
+    border-radius: 2px;
+    transition: all 0.2s ease;
+    position: relative;
+    
+    // 微妙的内边框
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 0.5px solid $line-base;
+      border-radius: 2px;
+      pointer-events: none;
+      transition: border-color 0.3s ease;
+    }
+    
+    &:hover {
+      background: rgba(45, 45, 55, 0.9);
+      color: $text-primary;
+      transform: scale(1.08);
+      z-index: 1;
+      
+      &::before {
+        border-color: $line-medium;
+      }
+    }
+  }
+  
+  // 可见状态
+  &--visible {
+    .pillars__header {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .pillars__pillar {
+      opacity: 1;
+      transform: translateY(0) rotateX(0deg);
+    }
+  }
+}

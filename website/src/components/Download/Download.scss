@@ -1,0 +1,107 @@
+// ==================== Download ====================
+// 简洁的 CTA 区域
+
+.download {
+  position: relative;
+  min-height: 100vh;
+  padding: $space-32 0;
+  background: $bg-void;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  
+  // 微妙的网格背景
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    @include cube-grid(100px, 0.015);
+    pointer-events: none;
+  }
+  
+  &__container {
+    @include container;
+    position: relative;
+    z-index: 1;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  
+  &__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-10;
+    padding: $space-10;
+    background: rgba(25, 25, 32, 0.5);
+    border: 1px solid $line-subtle;
+    border-radius: $radius-lg;
+    
+    @media (max-width: 768px) {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+  
+  // 可见状态
+  &--visible {
+    .download__container {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  &__text {
+    flex: 1;
+  }
+  
+  &__title {
+    @include section-title;
+    margin-bottom: $space-2;
+  }
+  
+  &__desc {
+    font-size: $font-size-base;
+    color: $text-secondary;
+  }
+  
+  &__actions {
+    display: flex;
+    gap: $space-3;
+    
+    @media (max-width: 640px) {
+      flex-direction: column;
+      width: 100%;
+    }
+  }
+  
+  &__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $space-2;
+    padding: $space-4 $space-8;
+    min-width: 120px;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $text-secondary;
+    background: transparent;
+    border: 1px dashed $line-base;
+    border-radius: $radius-base;
+    transition: all $duration-fast $ease-out;
+    
+    &:hover:not(:disabled) {
+      color: $text-primary;
+      border-style: solid;
+      border-color: rgba(100, 180, 255, 0.3);
+      background: rgba(100, 180, 255, 0.05);
+    }
+    
+    &:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+  }
+}

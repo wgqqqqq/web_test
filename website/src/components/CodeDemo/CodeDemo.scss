@@ -1,0 +1,284 @@
+// ==================== CodeDemo ====================
+// 协同流程 - 精致的时间轴设计
+
+.demo {
+  position: relative;
+  min-height: 100vh;
+  padding: $space-32 0;
+  background: $bg-primary;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  
+  &__container {
+    @include container;
+    position: relative;
+    z-index: 1;
+  }
+  
+  &__header {
+    text-align: center;
+    margin-bottom: $space-16;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  
+  &__title {
+    @include section-title;
+  }
+  
+  // 流程轨道
+  &__track {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: $space-12 0;
+    
+    // 中央时间轴
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        $line-base 5%,
+        $line-base 95%,
+        transparent 100%
+      );
+      transform: translateY(-50%);
+      
+      @media (max-width: 768px) {
+        display: none;
+      }
+    }
+  }
+  
+  // 步骤容器
+  &__steps {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    
+    @media (max-width: 768px) {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: $space-4;
+    }
+  }
+  
+  // 单个步骤
+  &__step {
+    flex: 1;
+    max-width: 140px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transition-delay: var(--delay);
+    
+    @media (max-width: 768px) {
+      flex: 0 0 calc(33.333% - #{$space-3});
+      max-width: none;
+    }
+    
+    @media (max-width: 480px) {
+      flex: 0 0 calc(50% - #{$space-2});
+    }
+    
+    &:hover {
+      .demo__step-node {
+        transform: scale(1.1);
+        border-style: solid;
+        
+        &::before {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+      
+      .demo__step-num {
+        opacity: 1;
+      }
+      
+      .demo__step-action {
+        color: $text-primary;
+      }
+      
+      .demo__step-line {
+        opacity: 1;
+      }
+    }
+    
+    // 人类步骤
+    &--human {
+      .demo__step-node {
+        border-style: solid;
+        border-color: $line-base;
+      }
+      
+      .demo__step-action {
+        color: $text-primary;
+      }
+    }
+  }
+  
+  // 节点方块
+  &__step-node {
+    width: 72px;
+    height: 72px;
+    border-radius: $radius-base;
+    border: 1px dashed $line-base;
+    background: $bg-primary;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-bottom: $space-4;
+    
+    // 外圈光环
+    &::before {
+      content: '';
+      position: absolute;
+      inset: -6px;
+      border-radius: $radius-lg;
+      border: 1px dashed $line-base;
+      opacity: 0;
+      transform: scale(0.9);
+      transition: all 0.3s ease;
+    }
+    
+    @media (max-width: 640px) {
+      width: 60px;
+      height: 60px;
+    }
+  }
+  
+  // 连接线（节点到时间轴）
+  &__step-line {
+    position: absolute;
+    left: 50%;
+    width: 1px;
+    background: linear-gradient(
+      180deg,
+      $line-base,
+      transparent
+    );
+    transform: translateX(-50%);
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+    
+    // 奇数项（1,3,5）在上方
+    .demo__step:nth-child(odd) & {
+      bottom: 100%;
+      height: 20px;
+      margin-bottom: $space-4;
+      background: linear-gradient(
+        0deg,
+        $line-base,
+        transparent
+      );
+    }
+    
+    // 偶数项（2,4,6）在下方
+    .demo__step:nth-child(even) & {
+      top: 100%;
+      height: 20px;
+      margin-top: $space-4;
+    }
+    
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+  
+  &__step-num {
+    font-size: $font-size-xl;
+    font-family: $font-mono;
+    font-weight: $font-weight-semibold;
+    color: $text-secondary;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+    
+    @media (max-width: 640px) {
+      font-size: $font-size-lg;
+    }
+  }
+  
+  &__step-content {
+    display: flex;
+    flex-direction: column;
+    gap: $space-1;
+  }
+  
+  &__step-action {
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: $text-secondary;
+    transition: color 0.3s ease;
+    letter-spacing: 0.02em;
+  }
+  
+  &__step-desc {
+    font-size: $font-size-xs;
+    color: $text-muted;
+    line-height: $line-height-relaxed;
+  }
+  
+  // 分组标签
+  &__group-labels {
+    display: flex;
+    justify-content: space-around;
+    margin-top: $space-10;
+    
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: center;
+      gap: $space-3;
+      margin-top: $space-8;
+    }
+  }
+  
+  &__group-label {
+    font-size: $font-size-xs;
+    color: $text-hint;
+    text-transform: uppercase;
+    letter-spacing: $letter-spacing-wider;
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    
+    &::before {
+      content: '';
+      width: 16px;
+      height: 1px;
+      background: $line-base;
+    }
+    
+    &--human::before {
+      background: $line-medium;
+    }
+  }
+  
+  // 可见状态
+  &--visible {
+    .demo__header {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .demo__step {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

@@ -1,0 +1,362 @@
+@use '@/styles/variables' as *;
+
+.download-page {
+  min-height: calc(100vh - $header-height);
+  padding: $space-16 0 $space-24;
+  background: $bg-void;
+  
+  &__container {
+    @include container;
+    max-width: 1000px;
+  }
+  
+  // ==================== 页面标题 ====================
+  &__header {
+    text-align: center;
+    margin-bottom: $space-16;
+  }
+  
+  &__title {
+    font-size: $font-size-4xl;
+    font-weight: $font-weight-semibold;
+    color: $text-primary;
+    margin-bottom: $space-4;
+    letter-spacing: $letter-spacing-tight;
+  }
+  
+  &__subtitle {
+    font-size: $font-size-lg;
+    color: $text-secondary;
+    max-width: 500px;
+    margin: 0 auto $space-6;
+    line-height: $line-height-relaxed;
+  }
+  
+  &__version-info {
+    display: flex;
+    justify-content: center;
+    gap: $space-4;
+  }
+  
+  &__version {
+    font-family: $font-mono;
+    font-size: $font-size-sm;
+    color: $text-primary;
+    padding: $space-1 $space-3;
+    background: transparent;
+    border: 1px dashed $line-base;
+    border-radius: $radius-sm;
+  }
+  
+  &__date {
+    font-size: $font-size-sm;
+    color: $text-muted;
+  }
+  
+  // ==================== 分区标题 ====================
+  &__section-title {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    color: $text-muted;
+    text-transform: uppercase;
+    letter-spacing: $letter-spacing-wide;
+    margin-bottom: $space-6;
+  }
+  
+  // ==================== 平台选择 ====================
+  &__platforms {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $space-6;
+    margin-bottom: $space-16;
+    
+    @media (max-width: 900px) {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  // ==================== 其他安装方式 ====================
+  &__alternatives {
+    margin-bottom: $space-16;
+  }
+  
+  &__alt-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $space-6;
+    
+    @media (max-width: 640px) {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  // ==================== 安装后步骤 ====================
+  &__next-steps {
+    margin-bottom: $space-12;
+  }
+}
+
+// ==================== 平台卡片 ====================
+.platform-card {
+  background: rgba($bg-primary, 0.4);
+  border-radius: $radius-lg;
+  padding: $space-6;
+  border: 1px solid transparent;
+  transition: all $duration-fast $ease-out;
+  
+  &:hover {
+    background: rgba($bg-primary, 0.6);
+  }
+  
+  // 当前系统高亮 - 蓝色边框
+  &--current {
+    border-color: rgba(100, 180, 255, 0.3);
+    
+    .platform-card__icon {
+      color: rgba(100, 180, 255, 0.9);
+    }
+    
+    // 当前系统的下载按钮更突出
+    .platform-card__download-btn {
+      border-style: solid;
+      border-color: rgba(100, 180, 255, 0.25);
+      color: $text-primary;
+      background: rgba(100, 180, 255, 0.04);
+      
+      svg {
+        color: rgba(100, 180, 255, 0.7);
+      }
+      
+      &:hover {
+        background: rgba(100, 180, 255, 0.08);
+        border-color: rgba(100, 180, 255, 0.4);
+      }
+    }
+  }
+  
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: $space-4;
+    margin-bottom: $space-6;
+  }
+  
+  &__icon {
+    color: $text-primary;
+    transition: color $duration-fast $ease-out;
+  }
+  
+  &__name {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-semibold;
+    color: $text-primary;
+  }
+  
+  &__badge {
+    margin-left: auto;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    color: $text-secondary;
+    padding: 2px $space-2;
+    background: transparent;
+    border: 1px solid $line-base;
+    border-radius: $radius-sm;
+  }
+  
+  &__downloads {
+    display: flex;
+    flex-direction: column;
+    gap: $space-2;
+    margin-bottom: $space-6;
+  }
+  
+  &__download-btn {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    padding: $space-3 $space-4;
+    background: transparent;
+    border: 1px dashed $line-base;
+    border-radius: $radius-base;
+    color: $text-secondary;
+    font-size: $font-size-sm;
+    transition: all $duration-fast $ease-out;
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.03);
+      border-style: solid;
+      border-color: $line-medium;
+      color: $text-primary;
+      text-decoration: none;
+    }
+    
+    svg {
+      color: $text-muted;
+      transition: color $duration-fast $ease-out;
+    }
+    
+    &:hover svg {
+      color: $text-secondary;
+    }
+  }
+  
+  &__arch {
+    flex: 1;
+    font-weight: $font-weight-medium;
+  }
+  
+  &__size {
+    font-size: $font-size-xs;
+    color: $text-muted;
+  }
+  
+  &__requirements {
+    padding-top: $space-4;
+    border-top: 1px dashed $line-base;
+  }
+  
+  &__requirements-title {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    color: $text-muted;
+    margin-bottom: $space-3;
+  }
+  
+  &__requirements-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    
+    li {
+      display: flex;
+      align-items: flex-start;
+      gap: $space-2;
+      font-size: $font-size-xs;
+      color: $text-secondary;
+      margin-bottom: $space-1;
+      
+      svg {
+        color: $text-hint;
+        margin-top: 2px;
+        flex-shrink: 0;
+      }
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+// ==================== 替代安装卡片 ====================
+.alt-card {
+  background: rgba($bg-primary, 0.4);
+  border-radius: $radius-base;
+  padding: $space-6;
+  
+  &__title {
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: $text-primary;
+    margin-bottom: $space-4;
+  }
+  
+  &__commands {
+    display: flex;
+    flex-direction: column;
+    gap: $space-3;
+  }
+  
+  &__command {
+    display: flex;
+    flex-direction: column;
+    gap: $space-1;
+  }
+  
+  &__label {
+    font-size: $font-size-xs;
+    color: $text-muted;
+  }
+  
+  &__desc {
+    font-size: $font-size-sm;
+    color: $text-secondary;
+    margin-bottom: $space-4;
+    line-height: $line-height-relaxed;
+  }
+  
+  &__link {
+    font-size: $font-size-sm;
+    color: $text-secondary;
+    text-decoration: underline;
+    text-decoration-style: dashed;
+    text-underline-offset: 3px;
+    
+    &:hover {
+      color: $text-primary;
+      text-decoration-style: solid;
+    }
+  }
+  
+  code {
+    display: block;
+    padding: $space-3;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: $radius-sm;
+    font-family: $font-mono;
+    font-size: $font-size-sm;
+    color: $text-primary;
+  }
+}
+
+// ==================== 安装后步骤 ====================
+.next-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $space-6;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.next-step {
+  display: flex;
+  gap: $space-4;
+  
+  &__number {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px dashed $line-base;
+    color: $text-secondary;
+    font-family: $font-mono;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    border-radius: $radius-sm;
+    flex-shrink: 0;
+  }
+  
+  &__content {
+    flex: 1;
+    
+    h3 {
+      font-size: $font-size-base;
+      font-weight: $font-weight-medium;
+      color: $text-primary;
+      margin-bottom: $space-2;
+    }
+    
+    p {
+      font-size: $font-size-sm;
+      color: $text-secondary;
+      line-height: $line-height-relaxed;
+    }
+  }
+}

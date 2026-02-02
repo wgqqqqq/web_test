@@ -1,0 +1,154 @@
+// ==================== Header ====================
+// 参考应用的 Header 和 PanelHeader 设计
+// 毛玻璃效果 + 虚线边框 + 蓝色点缀
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: $z-header;
+  height: $header-height;
+  
+  // 默认状态：透明
+  background: transparent;
+  border-bottom: 1px dashed transparent;
+  transition: all $duration-base $ease-out;
+  
+  // 滚动后状态：毛玻璃效果
+  &--scrolled {
+    background: rgba($bg-primary, 0.6);
+    backdrop-filter: blur(20px) saturate(1.2);
+    -webkit-backdrop-filter: blur(20px) saturate(1.2);
+    border-bottom: 1px dashed $line-light;
+    
+    // 底部渐变模糊
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 100%;
+      height: 12px;
+      pointer-events: none;
+      background: linear-gradient(
+        to bottom,
+        rgba($bg-primary, 0.3) 0%,
+        rgba($bg-primary, 0.1) 50%,
+        transparent 100%
+      );
+    }
+  }
+  
+  &__inner {
+    @include container;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  // ==================== Logo ====================
+  &__logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    padding: $space-2;
+    margin: -$space-2;
+    border-radius: $radius-base;
+    transition: all $duration-fast $ease-out;
+    
+    &:hover {
+      .header__logo-text {
+        color: $text-primary;
+      }
+    }
+  }
+  
+  &__logo-text {
+    margin-left: $space-2;
+    font-family: $font-display;
+    font-size: 1.125rem; // 18px
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.02em;
+    transition: color $duration-fast $ease-out;
+  }
+  
+  // ==================== 导航链接 ====================
+  &__nav-link {
+    padding: $space-2 $space-4;
+    font-size: $font-size-sm;
+    color: $text-muted;
+    border-radius: $radius-sm;
+    transition: all $duration-fast $ease-out;
+    
+    @media (max-width: 640px) {
+      display: none;
+    }
+    
+    &:hover {
+      color: $text-primary;
+      background: rgba(255, 255, 255, 0.04);
+    }
+    
+    &.is-active {
+      color: $text-primary;
+      background: rgba(255, 255, 255, 0.04);
+    }
+  }
+  
+  // ==================== 操作区 ====================
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+  }
+  
+  // 图标按钮
+  &__icon-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    color: $text-muted;
+    border-radius: $radius-sm;
+    transition: all $duration-fast $ease-out;
+    
+    &:hover {
+      color: $text-primary;
+      background: rgba(255, 255, 255, 0.04);
+    }
+  }
+  
+  // CTA 按钮 - 简洁风格
+  &__cta {
+    display: flex;
+    align-items: center;
+    gap: $space-1;
+    padding: $space-2 $space-4;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $text-secondary;
+    background: transparent;
+    border: 1px dashed $line-base;
+    border-radius: $radius-base;
+    transition: all $duration-fast $ease-out;
+    
+    svg {
+      transition: transform $duration-fast $ease-out;
+    }
+    
+    &:hover {
+      color: $text-primary;
+      border-style: solid;
+      border-color: $line-medium;
+      background: rgba(255, 255, 255, 0.02);
+      
+      svg {
+        transform: translateX(2px);
+      }
+    }
+  }
+}

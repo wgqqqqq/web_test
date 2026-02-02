@@ -1,0 +1,54 @@
+// ==================== Footer ====================
+// 简洁的页脚 - 不参与 scroll-snap
+
+.footer {
+  padding: $space-8 0;
+  background: $bg-void;
+  border-top: 1px dashed $line-light;
+  // 不参与 scroll-snap
+  scroll-snap-align: none;
+  
+  &__container {
+    @include container;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+    @media (max-width: 640px) {
+      flex-direction: column;
+      gap: $space-4;
+    }
+  }
+  
+  &__brand {
+    display: flex;
+    align-items: center;
+    gap: $space-4;
+  }
+  
+  &__logo {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $text-secondary;
+  }
+  
+  &__copyright {
+    font-size: $font-size-xs;
+    color: $text-hint;
+  }
+  
+  &__links {
+    display: flex;
+    gap: $space-6;
+  }
+  
+  &__link {
+    font-size: $font-size-sm;
+    color: $text-muted;
+    transition: color $duration-fast $ease-out;
+    
+    &:hover {
+      color: rgba(100, 180, 255, 0.7);
+    }
+  }
+}

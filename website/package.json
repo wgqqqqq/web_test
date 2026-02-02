@@ -1,0 +1,37 @@
+{
+  "name": "vcoder-website",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "npm run content:sync && tsc && vite build",
+    "preview": "vite preview",
+    "docs:sync": "node scripts/generate-docs-config.cjs",
+    "blog:sync": "node scripts/generate-blog-config.cjs",
+    "content:sync": "npm run docs:sync && npm run blog:sync"
+  },
+  "dependencies": {
+    "@types/three": "^0.182.0",
+    "framer-motion": "^11.15.0",
+    "highlight.js": "^11.11.1",
+    "lucide-react": "^0.469.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-markdown": "^10.1.0",
+    "react-router-dom": "^7.12.0",
+    "rehype-highlight": "^7.0.2",
+    "remark-gfm": "^4.0.1",
+    "three": "^0.182.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "gray-matter": "^4.0.3",
+    "sass": "^1.83.0",
+    "typescript": "~5.8.0",
+    "vite": "^6.0.0"
+  },
+  "packageManager": "pnpm@10.15.0+sha512.486ebc259d3e999a4e8691ce03b5cac4a71cbeca39372a9b762cb500cfdf0873e2cb16abe3d951b1ee2cf012503f027b98b6584e4df22524e0c7450d9ec7aa7b"
+}

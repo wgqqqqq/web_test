@@ -1,0 +1,128 @@
+@use '@/styles/variables' as *;
+
+.blog-post {
+  min-height: calc(100vh - $header-height);
+  padding: $space-12 0 $space-24;
+  background: $bg-void;
+
+  &__container {
+    @include container;
+    max-width: 760px;
+  }
+
+  // ==================== 返回链接 ====================
+  &__back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-2;
+    font-size: $font-size-sm;
+    color: $text-muted;
+    margin-bottom: $space-8;
+    transition: color $duration-fast $ease-out;
+
+    &:hover {
+      color: $text-primary;
+    }
+  }
+
+  // ==================== 文章头部 ====================
+  &__header {
+    margin-bottom: $space-10;
+    padding-bottom: $space-8;
+    border-bottom: 1px dashed $line-base;
+  }
+
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-2;
+    margin-bottom: $space-4;
+  }
+
+  &__tag {
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    color: $text-secondary;
+    padding: 2px $space-2;
+    background: transparent;
+    border: 1px dashed $line-base;
+    border-radius: $radius-sm;
+  }
+
+  &__title {
+    font-size: $font-size-3xl;
+    font-weight: $font-weight-semibold;
+    color: $text-primary;
+    line-height: $line-height-tight;
+    margin-bottom: $space-6;
+    letter-spacing: $letter-spacing-tight;
+
+    @media (max-width: 640px) {
+      font-size: $font-size-2xl;
+    }
+  }
+
+  &__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-6;
+  }
+
+  &__meta-item {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    font-size: $font-size-sm;
+    color: $text-muted;
+
+    svg {
+      opacity: 0.6;
+    }
+  }
+
+  // ==================== 文章内容 ====================
+  &__content {
+    margin-bottom: $space-12;
+  }
+
+  // ==================== 文章底部 ====================
+  &__footer {
+    padding-top: $space-8;
+    border-top: 1px dashed $line-base;
+  }
+
+  // ==================== 404 状态 ====================
+  &--not-found {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__error {
+    text-align: center;
+    padding: $space-16;
+
+    h1 {
+      font-size: $font-size-2xl;
+      color: $text-primary;
+      margin-bottom: $space-4;
+    }
+
+    p {
+      font-size: $font-size-base;
+      color: $text-secondary;
+      margin-bottom: $space-8;
+    }
+
+    .blog-post__back-link {
+      display: inline-flex;
+      padding: $space-3 $space-5;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: $radius-base;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.08);
+      }
+    }
+  }
+}

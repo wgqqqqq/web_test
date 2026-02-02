@@ -1,0 +1,235 @@
+@use '@/styles/variables' as *;
+
+.blog {
+  min-height: calc(100vh - $header-height);
+  padding: $space-16 0 $space-24;
+  background: $bg-void;
+  
+  &__container {
+    @include container;
+    max-width: 1000px;
+  }
+  
+  // ==================== 页面标题 ====================
+  &__header {
+    text-align: center;
+    margin-bottom: $space-12;
+  }
+  
+  &__title {
+    font-size: $font-size-4xl;
+    font-weight: $font-weight-semibold;
+    color: $text-primary;
+    margin-bottom: $space-4;
+    letter-spacing: $letter-spacing-tight;
+  }
+  
+  &__subtitle {
+    font-size: $font-size-lg;
+    color: $text-secondary;
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: $line-height-relaxed;
+  }
+  
+  // ==================== 分区标题 ====================
+  &__section-title {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    color: $text-muted;
+    text-transform: uppercase;
+    letter-spacing: $letter-spacing-wide;
+    margin-bottom: $space-6;
+  }
+  
+  // ==================== 精选文章 ====================
+  &__featured {
+    margin-bottom: $space-12;
+  }
+  
+  &__featured-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $space-6;
+    
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  // ==================== 筛选器 ====================
+  &__filter {
+    margin-bottom: $space-8;
+    padding-bottom: $space-6;
+    border-bottom: 1px dashed $line-base;
+  }
+  
+  // ==================== 文章列表 ====================
+  &__posts {
+    margin-bottom: $space-12;
+  }
+  
+  &__posts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $space-6;
+    
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  &__empty {
+    text-align: center;
+    padding: $space-16;
+    color: $text-muted;
+  }
+}
+
+// ==================== 标签筛选 ====================
+.tag-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2;
+  
+  &__btn {
+    padding: $space-2 $space-4;
+    font-size: $font-size-sm;
+    color: $text-secondary;
+    background: transparent;
+    border: 1px dashed $line-base;
+    border-radius: $radius-base;
+    cursor: pointer;
+    transition: all $duration-fast $ease-out;
+    
+    &:hover {
+      color: $text-primary;
+      border-style: solid;
+      border-color: $line-medium;
+    }
+    
+    &--active {
+      color: $text-primary;
+      background: rgba(255, 255, 255, 0.05);
+      border-style: solid;
+      border-color: $line-medium;
+    }
+  }
+}
+
+// ==================== 文章卡片 ====================
+.post-card {
+  display: block;
+  background: rgba($bg-primary, 0.4);
+  border: 1px dashed $line-base;
+  border-radius: $radius-base;
+  overflow: hidden;
+  transition: all $duration-base $ease-out;
+  cursor: pointer;
+  text-decoration: none;
+  
+  &:hover {
+    background: rgba($bg-primary, 0.6);
+    border-style: solid;
+    border-color: $line-medium;
+    transform: translateY(-2px);
+    text-decoration: none;
+    
+    .post-card__link {
+      color: $text-primary;
+      
+      svg {
+        transform: translateX(4px);
+      }
+    }
+  }
+  
+  &--featured {
+    .post-card__title {
+      font-size: $font-size-xl;
+    }
+  }
+  
+  &__content {
+    padding: $space-6;
+  }
+  
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-2;
+    margin-bottom: $space-3;
+  }
+  
+  &__tag {
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    color: $text-secondary;
+    padding: 2px $space-2;
+    background: transparent;
+    border: 1px dashed $line-base;
+    border-radius: $radius-sm;
+  }
+  
+  &__title {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    color: $text-primary;
+    margin-bottom: $space-3;
+    line-height: $line-height-snug;
+  }
+  
+  &__excerpt {
+    font-size: $font-size-sm;
+    color: $text-secondary;
+    line-height: $line-height-relaxed;
+    margin-bottom: $space-4;
+    
+    // 限制行数
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  &__meta {
+    display: flex;
+    gap: $space-4;
+    margin-bottom: $space-4;
+  }
+  
+  &__date,
+  &__read-time {
+    display: flex;
+    align-items: center;
+    gap: $space-1;
+    font-size: $font-size-xs;
+    color: $text-muted;
+  }
+  
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: $space-4;
+    border-top: 1px dashed $line-base;
+  }
+  
+  &__author {
+    font-size: $font-size-sm;
+    color: $text-secondary;
+  }
+  
+  &__link {
+    display: flex;
+    align-items: center;
+    gap: $space-1;
+    font-size: $font-size-sm;
+    color: $text-muted;
+    transition: color $duration-fast $ease-out;
+    
+    svg {
+      transition: transform $duration-fast $ease-out;
+    }
+  }
+}

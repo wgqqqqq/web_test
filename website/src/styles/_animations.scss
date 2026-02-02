@@ -1,0 +1,208 @@
+/**
+ * V-Coder Website 动画系统
+ * 微妙、克制的动效
+ */
+
+@use 'variables' as *;
+
+// ==================== Keyframes ====================
+
+// 淡入
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+// 淡入上移
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// 魔方旋转
+@keyframes cubeRotate {
+  0% { transform: rotateX(-20deg) rotateY(0deg); }
+  100% { transform: rotateX(-20deg) rotateY(360deg); }
+}
+
+// 微光呼吸
+@keyframes subtleGlow {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+}
+
+// 线条流动
+@keyframes lineFlow {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+// 网格缓动
+@keyframes gridShift {
+  0% { background-position: 0 0; }
+  100% { background-position: 80px 80px; }
+}
+
+// ==================== 动画类 ====================
+
+.animate-fade-in {
+  animation: fadeIn $duration-slow $ease-out forwards;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp $duration-slow $ease-out forwards;
+}
+
+// 延迟类
+@for $i from 1 through 8 {
+  .delay-#{$i} {
+    animation-delay: #{$i * 0.1}s;
+  }
+}
+
+// ==================== 滚动触发 ====================
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity $duration-slower $ease-out, transform $duration-slower $ease-out;
+  
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity $duration-slower $ease-out, transform $duration-slower $ease-out;
+  
+  &.visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+// ==================== Scroll Snap 增强动画 ====================
+
+// 章节进入动画 - 淡入上移
+@keyframes sectionFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// 章节进入动画 - 缩放淡入
+@keyframes sectionScaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+// 交错动画基础
+@keyframes staggerFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) rotateX(5deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotateX(0);
+  }
+}
+
+// 滑入动画 - 从左
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+// 滑入动画 - 从右
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+// 模糊淡入
+@keyframes blurFadeIn {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+// ==================== 章节可见性动画类 ====================
+
+// 基础可见性动画
+.snap-section {
+  // 章节内容容器的动画
+  .section-content {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: 
+      opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+      transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  &.is-visible .section-content {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// 交错动画辅助类
+.stagger-item {
+  opacity: 0;
+  transform: translateY(25px);
+  transition: 
+    opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition-delay: var(--stagger-delay, 0ms);
+}
+
+.is-visible .stagger-item {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+// 为不同索引生成交错延迟
+@for $i from 1 through 12 {
+  .stagger-#{$i} {
+    --stagger-delay: #{$i * 60}ms;
+  }
+}

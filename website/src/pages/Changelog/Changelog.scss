@@ -1,0 +1,340 @@
+@use '@/styles/variables' as *;
+
+.changelog {
+  min-height: calc(100vh - $header-height);
+  padding: $space-16 0 $space-24;
+  background: $bg-void;
+  
+  &__container {
+    @include container;
+    max-width: 800px;
+  }
+  
+  // ==================== 页面标题 ====================
+  &__header {
+    text-align: center;
+    margin-bottom: $space-16;
+  }
+  
+  &__title {
+    font-size: $font-size-4xl;
+    font-weight: $font-weight-semibold;
+    color: $text-primary;
+    margin-bottom: $space-4;
+    letter-spacing: $letter-spacing-tight;
+  }
+  
+  &__subtitle {
+    font-size: $font-size-lg;
+    color: $text-secondary;
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: $line-height-relaxed;
+  }
+  
+  // ==================== 版本列表 ====================
+  &__list {
+    position: relative;
+  }
+  
+  // ==================== 底部 ====================
+  &__footer {
+    margin-top: $space-16;
+    padding-top: $space-8;
+    text-align: center;
+    border-top: 1px dashed $line-subtle;
+    
+    p {
+      font-size: $font-size-sm;
+      color: $text-muted;
+    }
+    
+    a {
+      color: $text-secondary;
+      
+      &:hover {
+        color: $text-primary;
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+// ==================== 版本条目 ====================
+.changelog-entry {
+  display: flex;
+  gap: $space-6;
+  position: relative;
+  
+  &:last-child {
+    .changelog-entry__line {
+      display: none;
+    }
+  }
+  
+  // 时间线
+  &__timeline {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 20px;
+    flex-shrink: 0;
+    padding-top: $space-6;
+  }
+  
+  &__dot {
+    width: 12px;
+    height: 12px;
+    border-radius: $radius-sm;
+    background: transparent;
+    border: 1px dashed $line-medium;
+    z-index: 1;
+    transition: all $duration-fast $ease-out;
+    
+    &--latest {
+      width: 14px;
+      height: 14px;
+      background: transparent;
+      border: 1px solid $line-strong;
+      box-shadow: none;
+    }
+  }
+  
+  &__line {
+    width: 1px;
+    flex: 1;
+    background: repeating-linear-gradient(
+      180deg,
+      $line-base 0px,
+      $line-base 4px,
+      transparent 4px,
+      transparent 8px
+    );
+    margin-top: $space-2;
+  }
+  
+  // 内容区域
+  &__content {
+    flex: 1;
+    min-width: 0;
+    padding-bottom: $space-12;
+  }
+  
+  // 头部
+  &__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: $space-3;
+    padding: $space-4 $space-5;
+    background: transparent;
+    border: 1px dashed $line-base;
+    border-radius: $radius-base;
+    cursor: pointer;
+    transition: all $duration-fast $ease-out;
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.02);
+      border-style: solid;
+      border-color: $line-medium;
+    }
+  }
+  
+  &__meta {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    flex-wrap: wrap;
+  }
+  
+  &__version {
+    font-family: $font-mono;
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: $text-primary;
+  }
+  
+  &__badge {
+    font-size: $font-size-xs;
+    padding: 2px $space-2;
+    background: rgba(74, 222, 128, 0.08);
+    color: rgba(74, 222, 128, 0.9);
+    border: 1px solid rgba(74, 222, 128, 0.3);
+    border-radius: $radius-sm;
+    font-weight: $font-weight-medium;
+  }
+  
+  &__date {
+    font-size: $font-size-sm;
+    color: $text-muted;
+  }
+  
+  &__title {
+    flex: 1;
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    color: $text-secondary;
+    margin: 0;
+    
+    @media (max-width: 640px) {
+      flex-basis: 100%;
+      order: 1;
+      margin-top: $space-2;
+    }
+  }
+  
+  &__toggle {
+    color: $text-muted;
+    margin-left: auto;
+    transition: transform $duration-fast $ease-out;
+    
+    &--expanded {
+      transform: rotate(180deg);
+    }
+  }
+  
+  // 内容主体
+  &__body {
+    padding: $space-6 $space-5;
+    animation: fadeIn 0.3s $ease-out;
+  }
+}
+
+// ==================== 分区 ====================
+.changelog-section {
+  &:not(:last-child) {
+    margin-bottom: $space-8;
+    padding-bottom: $space-6;
+    border-bottom: 1px dashed $line-base;
+  }
+  
+  &__title {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    color: $text-muted;
+    text-transform: uppercase;
+    letter-spacing: $letter-spacing-wide;
+    margin-bottom: $space-4;
+  }
+  
+  &__items {
+    display: flex;
+    flex-direction: column;
+    gap: $space-4;
+  }
+}
+
+// ==================== 更新项 ====================
+.changelog-item {
+  padding: $space-4;
+  background: transparent;
+  border: 1px dashed $line-base;
+  border-radius: $radius-base;
+  transition: all $duration-fast $ease-out;
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.02);
+    border-style: solid;
+    border-color: $line-medium;
+  }
+  
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    margin-bottom: $space-2;
+  }
+  
+  &__tag {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-1;
+    font-size: $font-size-xs;
+    padding: 2px $space-2;
+    border-radius: $radius-sm;
+    font-weight: $font-weight-medium;
+    flex-shrink: 0;
+    background: transparent;
+    border: 1px dashed $line-medium;
+    color: $text-secondary;
+    
+    svg {
+      opacity: 0.7;
+    }
+    
+    // 新功能 - 绿色
+    &--feature {
+      border-color: rgba(74, 222, 128, 0.4);
+      color: rgba(74, 222, 128, 0.9);
+      
+      svg {
+        color: rgba(74, 222, 128, 0.8);
+      }
+    }
+    
+    // 改进 - 蓝色
+    &--improvement {
+      border-color: rgba(96, 165, 250, 0.4);
+      color: rgba(96, 165, 250, 0.9);
+      
+      svg {
+        color: rgba(96, 165, 250, 0.8);
+      }
+    }
+    
+    // 修复 - 橙色
+    &--fix {
+      border-color: rgba(251, 191, 36, 0.4);
+      color: rgba(251, 191, 36, 0.9);
+      
+      svg {
+        color: rgba(251, 191, 36, 0.8);
+      }
+    }
+  }
+  
+  &__title {
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    color: $text-primary;
+    margin: 0;
+  }
+  
+  &__desc {
+    font-size: $font-size-sm;
+    color: $text-secondary;
+    line-height: $line-height-relaxed;
+    margin: 0 0 $space-3;
+  }
+  
+  &__list {
+    margin: 0;
+    padding-left: $space-5;
+    
+    li {
+      font-size: $font-size-sm;
+      color: $text-secondary;
+      line-height: $line-height-relaxed;
+      margin-bottom: $space-1;
+      
+      &::marker {
+        color: $text-hint;
+      }
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
