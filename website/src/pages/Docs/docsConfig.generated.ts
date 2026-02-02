@@ -1,5 +1,5 @@
 // 此文件由脚本自动生成，请勿手动修改
-// 生成时间: 2026-02-02T08:12:46.111Z
+// 生成时间: 2026-02-02T08:17:34.513Z
 // 运行 npm run docs:sync 更新此文件
 
 import type { DocSection } from './docsConfig';

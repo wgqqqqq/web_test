@@ -88,7 +88,7 @@ export default function Hero() {
       >
         <div className="hero__product-frame">
           <img 
-            src="/product-view.png" 
+            src={`${import.meta.env.BASE_URL}product-view.png`}
             alt="VCoder 产品界面" 
             className="hero__product-image"
           />
