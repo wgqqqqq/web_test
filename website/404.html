@@ -6,10 +6,11 @@
     <title>Redirecting...</title>
     <script>
       (function () {
+        var base = "%BASE_URL%";
         var fullPath =
           window.location.pathname + window.location.search + window.location.hash;
         sessionStorage.setItem("redirect_path", fullPath);
-        window.location.replace("/");
+        window.location.replace(base);
       })();
     </script>
   </head>

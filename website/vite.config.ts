@@ -2,7 +2,8 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 
-export default defineConfig({
+export default defineConfig(() => ({
+  base: process.env.BASE_PATH || '/',
   plugins: [react()],
   resolve: {
     alias: {
@@ -21,6 +22,10 @@ export default defineConfig({
     sourcemap: false,
     minify: 'esbuild',
     rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, 'index.html'),
+        404: path.resolve(__dirname, '404.html'),
+      },
       output: {
         manualChunks: {
           vendor: ['react', 'react-dom', 'framer-motion'],
@@ -33,4 +38,4 @@ export default defineConfig({
     port: 3001,
     open: true,
   },
-});
+}));
