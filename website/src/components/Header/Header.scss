@@ -13,30 +13,54 @@
   // 默认状态：透明
   background: transparent;
   border-bottom: 1px dashed transparent;
-  transition: all $duration-base $ease-out;
+  transition: background $duration-base $ease-out, border-color $duration-base $ease-out;
+  
+  // 毛玻璃覆盖层 - 始终存在，用 opacity 过渡
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba($bg-primary, 0.6);
+    backdrop-filter: blur(20px) saturate(1.2);
+    -webkit-backdrop-filter: blur(20px) saturate(1.2);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity $duration-base $ease-out;
+    z-index: -1;
+  }
+  
+  // 底部渐变模糊 - 始终存在，用 opacity 过渡
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    height: 12px;
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom,
+      rgba($bg-primary, 0.3) 0%,
+      rgba($bg-primary, 0.1) 50%,
+      transparent 100%
+    );
+    opacity: 0;
+    transition: opacity $duration-base $ease-out;
+  }
   
   // 滚动后状态：毛玻璃效果
   &--scrolled {
     background: rgba($bg-primary, 0.6);
-    backdrop-filter: blur(20px) saturate(1.2);
-    -webkit-backdrop-filter: blur(20px) saturate(1.2);
     border-bottom: 1px dashed $line-light;
     
-    // 底部渐变模糊
+    // 毛玻璃层淡入
+    &::before {
+      opacity: 1;
+    }
+    
+    // 底部渐变淡入
     &::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 100%;
-      height: 12px;
-      pointer-events: none;
-      background: linear-gradient(
-        to bottom,
-        rgba($bg-primary, 0.3) 0%,
-        rgba($bg-primary, 0.1) 50%,
-        transparent 100%
-      );
+      opacity: 1;
     }
   }
   
@@ -46,6 +70,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: relative;
+    z-index: 1;
   }
   
   // ==================== Logo ====================
