@@ -9,12 +9,12 @@
   right: 0;
   z-index: $z-header;
   height: $header-height;
-  
+
   // 默认状态：透明
   background: transparent;
   border-bottom: 1px dashed transparent;
   transition: background $duration-base $ease-out, border-color $duration-base $ease-out;
-  
+
   // 毛玻璃覆盖层 - 始终存在，用 opacity 过渡
   &::before {
     content: '';
@@ -28,7 +28,7 @@
     transition: opacity $duration-base $ease-out;
     z-index: -1;
   }
-  
+
   // 底部渐变模糊 - 始终存在，用 opacity 过渡
   &::after {
     content: '';
@@ -47,23 +47,23 @@
     opacity: 0;
     transition: opacity $duration-base $ease-out;
   }
-  
+
   // 滚动后状态：毛玻璃效果
   &--scrolled {
     background: rgba($bg-primary, 0.6);
     border-bottom: 1px dashed $line-light;
-    
+
     // 毛玻璃层淡入
     &::before {
       opacity: 1;
     }
-    
+
     // 底部渐变淡入
     &::after {
       opacity: 1;
     }
   }
-  
+
   &__inner {
     @include container;
     height: 100%;
@@ -73,7 +73,7 @@
     position: relative;
     z-index: 1;
   }
-  
+
   // ==================== Logo ====================
   &__logo {
     display: flex;
@@ -83,14 +83,14 @@
     margin: -$space-2;
     border-radius: $radius-base;
     transition: all $duration-fast $ease-out;
-    
+
     &:hover {
       .header__logo-text {
         color: $text-primary;
       }
     }
   }
-  
+
   &__logo-text {
     margin-left: $space-2;
     font-family: $font-display;
@@ -100,7 +100,7 @@
     letter-spacing: -0.02em;
     transition: color $duration-fast $ease-out;
   }
-  
+
   // ==================== 导航链接 ====================
   &__nav-link {
     padding: $space-2 $space-4;
@@ -108,29 +108,29 @@
     color: $text-muted;
     border-radius: $radius-sm;
     transition: all $duration-fast $ease-out;
-    
+
     @media (max-width: 640px) {
       display: none;
     }
-    
+
     &:hover {
       color: $text-primary;
       background: rgba(255, 255, 255, 0.04);
     }
-    
+
     &.is-active {
       color: $text-primary;
       background: rgba(255, 255, 255, 0.04);
     }
   }
-  
+
   // ==================== 操作区 ====================
   &__actions {
     display: flex;
     align-items: center;
     gap: $space-2;
   }
-  
+
   // 图标按钮
   &__icon-btn {
     display: flex;
@@ -141,13 +141,13 @@
     color: $text-muted;
     border-radius: $radius-sm;
     transition: all $duration-fast $ease-out;
-    
+
     &:hover {
       color: $text-primary;
       background: rgba(255, 255, 255, 0.04);
     }
   }
-  
+
   // CTA 按钮 - 简洁风格
   &__cta {
     display: flex;
@@ -161,17 +161,17 @@
     border: 1px dashed $line-base;
     border-radius: $radius-base;
     transition: all $duration-fast $ease-out;
-    
+
     svg {
       transition: transform $duration-fast $ease-out;
     }
-    
+
     &:hover {
       color: $text-primary;
       border-style: solid;
       border-color: $line-medium;
       background: rgba(255, 255, 255, 0.02);
-      
+
       svg {
         transform: translateX(2px);
       }
