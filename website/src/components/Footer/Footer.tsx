@@ -1,9 +1,10 @@
+import { Link } from 'react-router-dom';
 import './Footer.scss';
 
 const links = [
-  { label: '文档', href: '#docs' },
+  { label: '文档', to: '/docs' },
   { label: 'GitHub', href: 'https://github.com' },
-  { label: '更新日志', href: '#changelog' },
+  { label: '更新日志', to: '/changelog' },
 ];
 
 export default function Footer() {
@@ -19,15 +20,25 @@ export default function Footer() {
         
         <nav className="footer__links">
           {links.map((link) => (
-            <a 
-              key={link.label} 
-              href={link.href}
-              className="footer__link"
-              target={link.href.startsWith('http') ? '_blank' : undefined}
-              rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-            >
-              {link.label}
-            </a>
+            link.to ? (
+              <Link 
+                key={link.label} 
+                to={link.to}
+                className="footer__link"
+              >
+                {link.label}
+              </Link>
+            ) : (
+              <a 
+                key={link.label} 
+                href={link.href}
+                className="footer__link"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {link.label}
+              </a>
+            )
           ))}
         </nav>
       </div>
